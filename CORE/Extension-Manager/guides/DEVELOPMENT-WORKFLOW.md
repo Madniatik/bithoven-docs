@@ -165,7 +165,10 @@ php artisan bithoven:extension:install-local tasks ../EXTENSIONS/bithoven-extens
 - Repository added to `composer.json`
 - Extension registered in configs
 - Migrations executed (if selected)
+- **Core seeders executed automatically** (from `extension.json` → `seeders.core`) ✨
 - Extension enabled (if selected)
+
+> **Note (Nov 2025):** A bug existed where core seeders were NOT executed during UI local installation. This was fixed in CPANEL v1.7.0+. If you're on an older version, core data (permissions, configuration) won't be installed automatically and you'll need to run seeders manually.
 
 ### 4.2 Enable Development Mode
 

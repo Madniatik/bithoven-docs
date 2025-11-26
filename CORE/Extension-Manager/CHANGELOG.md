@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.3.1] - 2025-11-26
+
+### Fixed
+- **CRITICAL: Core seeders not executed during local installation via UI**
+  - **Problem:** `ExtensionManagerController::installLocal()` had custom installation logic that only ran migrations, skipping seeders completely
+  - **Impact:** Extensions installed via "Install from Local Path" UI had missing permissions, configuration, and other core data
+  - **Root Cause:** Controller bypassed `ExtensionInstaller` and directly called `ExtensionMigrationManager::run()` without calling `ExtensionSeederManager::runBase()`
+  - **Solution:** Added `runBase()` call after migrations in `installLocal()` method
+  - **Verified:** llm-manager v1.0.1 - 12/12 permissions installed successfully with correct `extensions:llm-manager:*` prefix
+  - **Scope:** Only affected local installations via UI. VCS installations and CLI installs were not affected (they use `ExtensionInstaller::install()`)
+
+### Changed
+- **ExtensionManagerController::installLocal()** - Now executes core seeders after migrations
+  - Step 5.5: `ExtensionSeederManager::runBase($name)` added
+  - Reads `seeders.core` from `extension.json`
+  - Executes in subprocess for fresh autoloader context
+
+---
+
 ## [1.3.0] - 2025-11-18
 
 ### Added
