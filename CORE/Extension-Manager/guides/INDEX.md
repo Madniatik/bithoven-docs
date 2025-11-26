@@ -29,6 +29,8 @@ Quick navigation to all documentation files.
 - **[QUICK-START.md](QUICK-START.md)** ✅ - Create your first extension in 15 min
 - **[DEVELOPMENT-MODE.md](DEVELOPMENT-MODE.md)** ✅ - Live editing with symlinks
 - **[SEEDERS-BEST-PRACTICES.md](SEEDERS-BEST-PRACTICES.md)** ✅ - Critical seeder patterns
+- **[PERMISSIONS-PROTOCOL-v2.md](PERMISSIONS-PROTOCOL-v2.md)** ✅ - Extension permissions with metadata
+- **[NAMESPACE-CONVENTIONS.md](NAMESPACE-CONVENTIONS.md)** ✅ - Namespace resolution & composer.json
 - **[DATABASE-CONVENTIONS.md](DATABASE-CONVENTIONS.md)** ✅ - Table naming, indexes, FK conventions
 - **[EXTENSION-STRUCTURE.md](EXTENSION-STRUCTURE.md)** ✅ - File organization
 - **[MIGRATIONS-GUIDELINES.md](MIGRATIONS-GUIDELINES.md)** ✅ - Database schema
@@ -54,8 +56,9 @@ Quick navigation to all documentation files.
 ### "I want to create a new extension"
 1. ✅ [QUICK-START.md](QUICK-START.md) - Follow step-by-step
 2. ✅ [DEVELOPMENT-MODE.md](DEVELOPMENT-MODE.md) - Enable live editing
-3. ✅ [SEEDERS-BEST-PRACTICES.md](SEEDERS-BEST-PRACTICES.md) - Critical seeder patterns
-4. ✅ [EXTENSION-STRUCTURE.md](EXTENSION-STRUCTURE.md) - Understand structure
+3. ✅ [NAMESPACE-CONVENTIONS.md](NAMESPACE-CONVENTIONS.md) - Understand namespace resolution
+4. ✅ [SEEDERS-BEST-PRACTICES.md](SEEDERS-BEST-PRACTICES.md) - Critical seeder patterns
+5. ✅ [EXTENSION-STRUCTURE.md](EXTENSION-STRUCTURE.md) - Understand structure
 
 ### "I want to understand seeders"
 1. ✅ [SEEDERS-BEST-PRACTICES.md](SEEDERS-BEST-PRACTICES.md) - Complete guide
@@ -136,10 +139,12 @@ Quick navigation to all documentation files.
 
 ## 📝 Document Status
 
-### Complete (✅) - 15 Core Guides
+### Complete (✅) - 17 Core Guides
 - ✅ **QUICK-START.md** - Create your first extension
 - ✅ **DEVELOPMENT-MODE.md** - Live editing with symlinks
-- ✅ **SEEDERS-BEST-PRACTICES.md** - Critical seeder patterns  
+- ✅ **SEEDERS-BEST-PRACTICES.md** - Critical seeder patterns
+- ✅ **PERMISSIONS-PROTOCOL-v2.md** - Extension permissions with metadata
+- ✅ **NAMESPACE-CONVENTIONS.md** - Namespace resolution & composer.json  
 - ✅ **DATABASE-CONVENTIONS.md** - Table naming, indexes, FK conventions
 - ✅ **EXTENSION-STRUCTURE.md** - File organization
 - ✅ **MIGRATIONS-GUIDELINES.md** - Database schema
@@ -167,10 +172,10 @@ All other documents listed above with 📝 icon are planned for future versions
 
 This index is updated automatically when new documentation is added.
 
-**Last Updated:** 18 de noviembre de 2025  
-**Available Now:** 15 guides + 3 root docs = 18 documents  
+**Last Updated:** 19 de noviembre de 2025  
+**Available Now:** 17 guides + 3 root docs = 20 documents  
 **Planned:** ~20 additional documents  
-**Version:** 1.3.0
+**Version:** 1.5.0
 
 ---
 
