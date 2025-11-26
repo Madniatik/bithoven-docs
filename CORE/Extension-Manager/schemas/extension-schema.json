@@ -1,0 +1,291 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://bithoven.com/schemas/extension-manifest.json",
+  "title": "BITHOVEN Extension Manifest Schema",
+  "description": "Official JSON Schema for BITHOVEN extension.json configuration files",
+  "type": "object",
+  "required": ["slug", "name", "version", "description", "author", "created_at"],
+  "properties": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Unique extension identifier (lowercase, hyphens allowed)",
+      "examples": ["llm-manager", "tickets", "dummy"]
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "description": "Display name for UI (user-facing)",
+      "examples": ["LLM Manager", "Tickets System", "Dummy Extension"]
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic version (X.Y.Z) - SOURCE OF TRUTH for extension versioning",
+      "examples": ["1.0.0", "2.3.1"]
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 255,
+      "description": "Short description of extension functionality",
+      "examples": ["Multi-provider LLM orchestration platform with streaming support"]
+    },
+    "author": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Author or team name",
+      "examples": ["BITHOVEN Team", "John Doe"]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Extension creation timestamp (ISO 8601 format)",
+      "examples": ["2025-01-15T10:30:00+00:00"]
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp (ISO 8601 format)",
+      "examples": ["2025-11-26T21:30:00+00:00"]
+    },
+    "homepage": {
+      "type": "string",
+      "format": "uri",
+      "description": "Homepage URL (GitHub repository, documentation site, etc.)",
+      "examples": ["https://github.com/bithoven/llm-manager"]
+    },
+    "repository": {
+      "type": "object",
+      "required": ["type", "url"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["vcs", "git"],
+          "description": "Version control system type"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Repository URL (used for dev-mode symlink management)",
+          "examples": ["https://github.com/bithoven/llm-manager.git"]
+        }
+      },
+      "description": "VCS repository information - CRITICAL for development mode"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Productivity",
+        "Development",
+        "AI & Machine Learning",
+        "Communication",
+        "Analytics",
+        "Security",
+        "Integration",
+        "Utilities",
+        "Other"
+      ],
+      "description": "Extension category (used in marketplace UI for filtering)",
+      "examples": ["Productivity", "AI & Machine Learning"]
+    },
+    "icon": {
+      "type": "string",
+      "pattern": "^ki-[a-z0-9-]+$",
+      "description": "Keenicons CSS class (displayed in marketplace cards and modals)",
+      "examples": ["ki-abstract-26", "ki-ticket", "ki-code"]
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false,
+      "description": "Featured flag (used for marketplace sorting - featured items shown first)"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 2,
+        "maxLength": 30
+      },
+      "uniqueItems": true,
+      "maxItems": 10,
+      "description": "Tags for search and categorization (shown as badges in UI)",
+      "examples": [
+        ["ai", "llm", "openai", "streaming"],
+        ["support", "helpdesk", "tickets", "automation"]
+      ]
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^extensions:[a-z-]+:[a-z-]+:(view|create|edit|delete|manage)$"
+      },
+      "uniqueItems": true,
+      "description": "Permission strings (auto-created during installation) - CRITICAL",
+      "examples": [
+        [
+          "extensions:llm-manager:conversations:view",
+          "extensions:llm-manager:conversations:create",
+          "extensions:tickets:tickets:manage"
+        ]
+      ]
+    },
+    "system_tables": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z_]+$"
+      },
+      "uniqueItems": true,
+      "description": "Core CPANEL tables that extension depends on (e.g., users, permissions, roles)",
+      "examples": [["users", "permissions", "roles", "notifications"]]
+    },
+    "migrations": {
+      "type": "object",
+      "properties": {
+        "required": {
+          "type": "boolean",
+          "description": "Whether migrations are required for this extension"
+        },
+        "path": {
+          "type": "string",
+          "default": "database/migrations",
+          "description": "Custom path to migrations directory (relative to extension root)"
+        }
+      },
+      "description": "Migration configuration (count and details are auto-generated)"
+    },
+    "seeders": {
+      "type": "object",
+      "required": ["core", "demo"],
+      "properties": {
+        "core": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z][a-zA-Z0-9]*Seeder$"
+          },
+          "description": "Core seeders (executed on install - essential data like categories, templates, etc.) - CRITICAL"
+        },
+        "demo": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z][a-zA-Z0-9]*Seeder$"
+          },
+          "description": "Demo seeders (executed on demand - sample/test data) - CRITICAL"
+        }
+      },
+      "description": "Seeder configuration - separates essential data from demo data"
+    },
+    "requirements": {
+      "type": "object",
+      "properties": {
+        "php": {
+          "type": "string",
+          "pattern": "^\\^?\\d+\\.\\d+",
+          "description": "Required PHP version (semver constraint)",
+          "examples": ["^8.2", "^8.1"]
+        },
+        "laravel": {
+          "type": "string",
+          "pattern": "^\\^?\\d+\\.\\d+",
+          "description": "Required Laravel version (semver constraint)",
+          "examples": ["^11.0", "^10.0"]
+        },
+        "node": {
+          "type": "string",
+          "pattern": "^\\^?\\d+\\.\\d+",
+          "description": "Required Node.js version (optional - for extensions with frontend build)",
+          "examples": ["^18.0", "^20.0"]
+        },
+        "python": {
+          "type": "string",
+          "pattern": "^\\^?\\d+\\.\\d+",
+          "description": "Required Python version (optional - for extensions with Python scripts)",
+          "examples": ["^3.9", "^3.11"]
+        }
+      },
+      "description": "Version requirements - PENDING automatic validation implementation"
+    },
+    "min_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Minimum CPANEL version required - PENDING automatic validation",
+      "examples": ["1.3.0", "1.5.0"]
+    },
+    "dependencies": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^\\^?\\d+\\.\\d+(\\.\\d+)?$"
+      },
+      "description": "Extension dependencies (other BITHOVEN extensions) - PENDING validation",
+      "examples": [
+        {
+          "bithoven/core": "^1.4.0",
+          "bithoven/tickets": "^1.2.0"
+        }
+      ]
+    },
+    "changelog": {
+      "type": "object",
+      "patternProperties": {
+        "^v\\d+\\.\\d+\\.\\d+$": {
+          "type": "object",
+          "required": ["date", "changes"],
+          "properties": {
+            "date": {
+              "type": "string",
+              "format": "date",
+              "description": "Release date (YYYY-MM-DD)"
+            },
+            "changes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1,
+              "description": "List of changes in this version"
+            },
+            "migration_notes": {
+              "type": "string",
+              "description": "Notes about database migrations in this version"
+            },
+            "breaking_changes": {
+              "type": "boolean",
+              "default": false,
+              "description": "Whether this version includes breaking changes"
+            },
+            "components": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["code", "database", "config", "assets", "dependencies"]
+              },
+              "description": "Components affected by this version"
+            }
+          }
+        }
+      },
+      "description": "Version history - displayed in marketplace UI",
+      "examples": [
+        {
+          "v1.0.1": {
+            "date": "2025-11-26",
+            "changes": [
+              "Fixed seeder architecture",
+              "Added prompt templates seeder"
+            ],
+            "migration_notes": "No migrations",
+            "breaking_changes": false,
+            "components": ["code", "database"]
+          }
+        }
+      ]
+    }
+  },
+  "additionalProperties": false
+}

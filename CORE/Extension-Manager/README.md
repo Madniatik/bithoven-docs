@@ -15,6 +15,7 @@
 - [Development Workflow](guides/DEVELOPMENT-WORKFLOW.md) - Best practices and workflow
 
 ### Core Concepts
+- [Extension JSON Schema](guides/EXTENSION-JSON-SCHEMA.md) - **NEW:** Complete extension.json reference (schema v1.0.0)
 - [Configuration System](guides/CONFIGURATION-SYSTEM.md) - Settings, repos, auth
 - [Extension Structure](guides/EXTENSION-STRUCTURE.md) - File organization and structure
 - [Database Conventions](guides/DATABASE-CONVENTIONS.md) - Table naming, indexes, foreign keys
@@ -27,6 +28,10 @@
 - [Fresh Install System](guides/FRESH-INSTALL-SYSTEM.md) - Complete reinstallation process
 - [Backup & Recovery](guides/BACKUP-RECOVERY.md) - Automatic backups and restoration
 - [Extension Manager API](guides/EXTENSION-MANAGER-API.md) - Complete API reference
+
+### Schema & Validation
+- [JSON Schema](schemas/extension-schema.json) - **NEW:** Official JSON Schema for validation
+- [Extension JSON Reference](guides/EXTENSION-JSON-SCHEMA.md) - **NEW:** Complete field documentation
 
 ### Templates & Examples
 - [Extension Template](templates/extension-template/) - Complete starter template
@@ -42,12 +47,14 @@
 ## 🎯 Quick Links
 
 ### Most Important Documents
-1. **[SEEDERS-BEST-PRACTICES.md](guides/SEEDERS-BEST-PRACTICES.md)** - Read this FIRST! Critical for Fix Extension compatibility
-2. **[QUICK-START.md](guides/QUICK-START.md)** - Get started in 5 minutes
-3. **[COPILOT/AI-AGENT-INSTRUCTIONS.md](COPILOT/AI-AGENT-INSTRUCTIONS.md)** - For AI assistants working on extensions
+1. **[EXTENSION-JSON-SCHEMA.md](guides/EXTENSION-JSON-SCHEMA.md)** - **NEW:** Complete extension.json reference (schema v1.0.0)
+2. **[SEEDERS-BEST-PRACTICES.md](guides/SEEDERS-BEST-PRACTICES.md)** - Read this FIRST! Critical for Fix Extension compatibility
+3. **[QUICK-START.md](guides/QUICK-START.md)** - Get started in 5 minutes
+4. **[COPILOT/AI-AGENT-INSTRUCTIONS.md](COPILOT/AI-AGENT-INSTRUCTIONS.md)** - For AI assistants working on extensions
 
 ### By Topic
-- **Creating Extensions:** [QUICK-START.md](guides/QUICK-START.md) → [EXTENSION-STRUCTURE.md](guides/EXTENSION-STRUCTURE.md)
+- **Creating Extensions:** [QUICK-START.md](guides/QUICK-START.md) → [EXTENSION-JSON-SCHEMA.md](guides/EXTENSION-JSON-SCHEMA.md) → [EXTENSION-STRUCTURE.md](guides/EXTENSION-STRUCTURE.md)
+- **Configuration:** [EXTENSION-JSON-SCHEMA.md](guides/EXTENSION-JSON-SCHEMA.md) → [extension-schema.json](schemas/extension-schema.json)
 - **Database:** [DATABASE-CONVENTIONS.md](guides/DATABASE-CONVENTIONS.md) → [SEEDERS-BEST-PRACTICES.md](guides/SEEDERS-BEST-PRACTICES.md) → [MIGRATIONS-GUIDELINES.md](guides/MIGRATIONS-GUIDELINES.md)
 - **Troubleshooting:** [FIX-EXTENSION-SYSTEM.md](guides/FIX-EXTENSION-SYSTEM.md) → [BACKUP-RECOVERY.md](guides/BACKUP-RECOVERY.md)
 

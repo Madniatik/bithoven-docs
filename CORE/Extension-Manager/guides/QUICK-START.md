@@ -70,26 +70,63 @@ EOF
 
 ## 📋 Step 3: Create extension.json
 
+**⚠️ NEW SCHEMA v1.0.0** - See [EXTENSION-JSON-SCHEMA.md](EXTENSION-JSON-SCHEMA.md) for complete reference
+
 ```bash
 cat > extension.json << 'EOF'
 {
-    "name": "hello",
-    "display_name": "Hello World",
+    "slug": "hello",
+    "name": "Hello World",
     "version": "1.0.0",
-    "description": "A simple Hello World extension",
+    "description": "A simple Hello World extension for demonstrating BITHOVEN extension system",
     "author": "Your Name",
-    "dependencies": [],
-    "features": {
-        "routes": true,
-        "views": true,
-        "migrations": true,
-        "seeders": true,
-        "config": true
+    "created_at": "2025-11-26T21:30:00+00:00",
+    "updated_at": "2025-11-26T21:30:00+00:00",
+    
+    "homepage": "https://github.com/yourusername/bithoven-extension-hello",
+    "repository": {
+        "type": "vcs",
+        "url": "https://github.com/yourusername/bithoven-extension-hello.git"
     },
-    "permissions": []
+    
+    "category": "Development",
+    "icon": "ki-code",
+    "featured": false,
+    "tags": ["demo", "hello-world", "template"],
+    
+    "permissions": [
+        "extensions:hello:base:view"
+    ],
+    
+    "seeders": {
+        "core": [],
+        "demo": ["HelloDemoSeeder"]
+    },
+    
+    "changelog": {
+        "v1.0.0": {
+            "date": "2025-11-26",
+            "changes": ["Initial release"],
+            "migration_notes": "No migrations",
+            "breaking_changes": false,
+            "components": ["code"]
+        }
+    }
 }
 EOF
 ```
+
+**📖 Required fields:**
+- `slug` - Unique identifier (lowercase-hyphen)
+- `name` - Display name
+- `version` - Semantic version (X.Y.Z)
+- `description` - Short description (10-255 chars)
+- `author` - Your name or team
+- `created_at` - ISO 8601 timestamp
+- `seeders.core` - Core seeders (run on install)
+- `seeders.demo` - Demo seeders (run on demand)
+
+**🔗 See full documentation:** [EXTENSION-JSON-SCHEMA.md](EXTENSION-JSON-SCHEMA.md)
 
 ---
 
