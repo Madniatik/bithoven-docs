@@ -159,7 +159,7 @@
     },
     "seeders": {
       "type": "object",
-      "required": ["core", "demo"],
+      "required": ["core", "demo", "uninstall"],
       "properties": {
         "core": {
           "type": "array",
@@ -167,7 +167,7 @@
             "type": "string",
             "pattern": "^[A-Z][a-zA-Z0-9]*Seeder$"
           },
-          "description": "Core seeders (executed on install - essential data like categories, templates, etc.) - CRITICAL"
+          "description": "Core seeders (executed on install - essential data like PermissionsSeeder, categories, templates, etc.) - CRITICAL: PermissionsSeeder must be first"
         },
         "demo": {
           "type": "array",
@@ -176,9 +176,17 @@
             "pattern": "^[A-Z][a-zA-Z0-9]*Seeder$"
           },
           "description": "Demo seeders (executed on demand - sample/test data) - CRITICAL"
+        },
+        "uninstall": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z][a-zA-Z0-9]*Seeder$"
+          },
+          "description": "Uninstall seeders (executed before migration rollback - cleanup permissions, cache, etc.) - CRITICAL: UninstallSeeder should delete permissions created by PermissionsSeeder"
         }
       },
-      "description": "Seeder configuration - separates essential data from demo data"
+      "description": "Seeder configuration - separates essential data from demo data and cleanup tasks. UninstallSeeder prevents foreign key constraint errors when removing permissions."
     },
     "requirements": {
       "type": "object",
