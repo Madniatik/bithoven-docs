@@ -1,7 +1,7 @@
 # Bithoven Extensions - Complete Documentation
 
-**Version:** 1.3.0  
-**Last Updated:** 18 de noviembre de 2025  
+**Version:** 1.4.0  
+**Last Updated:** 27 de noviembre de 2025  
 **Maintainer:** Madniatik
 
 ---
@@ -16,6 +16,7 @@
 
 ### Core Concepts
 - [Extension JSON Schema](guides/EXTENSION-JSON-SCHEMA.md) - **NEW:** Complete extension.json reference (schema v1.0.0)
+- [Extension Permissions Protocol v2.0](guides/PERMISSIONS-PROTOCOL-v2.md) - **CRITICAL:** Seeder-based permissions system
 - [Configuration System](guides/CONFIGURATION-SYSTEM.md) - Settings, repos, auth
 - [Extension Structure](guides/EXTENSION-STRUCTURE.md) - File organization and structure
 - [Database Conventions](guides/DATABASE-CONVENTIONS.md) - Table naming, indexes, foreign keys
@@ -47,13 +48,15 @@
 ## 🎯 Quick Links
 
 ### Most Important Documents
-1. **[EXTENSION-JSON-SCHEMA.md](guides/EXTENSION-JSON-SCHEMA.md)** - **NEW:** Complete extension.json reference (schema v1.0.0)
-2. **[SEEDERS-BEST-PRACTICES.md](guides/SEEDERS-BEST-PRACTICES.md)** - Read this FIRST! Critical for Fix Extension compatibility
-3. **[QUICK-START.md](guides/QUICK-START.md)** - Get started in 5 minutes
-4. **[COPILOT/AI-AGENT-INSTRUCTIONS.md](COPILOT/AI-AGENT-INSTRUCTIONS.md)** - For AI assistants working on extensions
+1. **[PERMISSIONS-PROTOCOL-v2.md](guides/PERMISSIONS-PROTOCOL-v2.md)** - **CRITICAL:** Seeder-based permissions (hooks NO existen)
+2. **[EXTENSION-JSON-SCHEMA.md](guides/EXTENSION-JSON-SCHEMA.md)** - Complete extension.json reference (schema v1.0.0)
+3. **[SEEDERS-BEST-PRACTICES.md](guides/SEEDERS-BEST-PRACTICES.md)** - Read this FIRST! Critical for Fix Extension compatibility
+4. **[QUICK-START.md](guides/QUICK-START.md)** - Get started in 5 minutes
+5. **[COPILOT/AI-AGENT-INSTRUCTIONS.md](COPILOT/AI-AGENT-INSTRUCTIONS.md)** - For AI assistants working on extensions
 
 ### By Topic
 - **Creating Extensions:** [QUICK-START.md](guides/QUICK-START.md) → [EXTENSION-JSON-SCHEMA.md](guides/EXTENSION-JSON-SCHEMA.md) → [EXTENSION-STRUCTURE.md](guides/EXTENSION-STRUCTURE.md)
+- **Permissions:** [PERMISSIONS-PROTOCOL-v2.md](guides/PERMISSIONS-PROTOCOL-v2.md) → [SEEDERS-BEST-PRACTICES.md](guides/SEEDERS-BEST-PRACTICES.md)
 - **Configuration:** [EXTENSION-JSON-SCHEMA.md](guides/EXTENSION-JSON-SCHEMA.md) → [extension-schema.json](schemas/extension-schema.json)
 - **Database:** [DATABASE-CONVENTIONS.md](guides/DATABASE-CONVENTIONS.md) → [SEEDERS-BEST-PRACTICES.md](guides/SEEDERS-BEST-PRACTICES.md) → [MIGRATIONS-GUIDELINES.md](guides/MIGRATIONS-GUIDELINES.md)
 - **Troubleshooting:** [FIX-EXTENSION-SYSTEM.md](guides/FIX-EXTENSION-SYSTEM.md) → [BACKUP-RECOVERY.md](guides/BACKUP-RECOVERY.md)
@@ -63,7 +66,8 @@
 ## 📦 Extension Ecosystem
 
 ### Available Extensions
-- **bithoven-extension-tickets** - Complete ticket management system
+- **bithoven-extension-llm-manager** - AI/LLM management system (v1.0.3)
+- **bithoven-extension-tickets** - Complete ticket management system (v1.2.3)
 - **bithoven-extension-dummy** - Minimal example extension for learning
 
 ### Extension Registry
@@ -126,11 +130,15 @@ php artisan bithoven:extension:uninstall {name}
 ❌ Mixing demo data with base seeders → Pollutes essential data  
 ❌ Not defining ID ranges → Custom records get overwritten  
 ❌ Forgetting to backup → Data loss on Fresh Install  
+❌ **Using registerExtensionHooks() for permissions** → Hooks estáticos NO existen  
+❌ **Creating permissions sin alias/description** → Debe usar PermissionsSeeder con Protocol v2.0  
 
 ✅ Use `updateOrCreate(['id' => ...])` for base records  
 ✅ Keep DemoSeeder separate  
 ✅ Document ID ranges (1-N base, >N custom)  
 ✅ Test both Fix and Fresh Install thoroughly  
+✅ **Use PermissionsSeeder for permissions** → Auto-detección por ExtensionSeederManager  
+✅ **Use UninstallSeeder for cleanup** → Elimina permisos y asignaciones correctamente  
 
 ---
 

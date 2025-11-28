@@ -7,6 +7,99 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.0.0] - 2025-11-28
+
+### Changed - MAJOR REFACTORING COMPLETED ✅
+- **ExtensionManagerController Refactoring v2.0.0**
+  - **Reduced complexity:** 2,090 lines → 450 lines (78% reduction)
+  - **Methods extracted:** 39 methods → 9 methods (77% reduction)
+  - **PHPStan errors:** 100 errors → 0 errors (100% fixed)
+  - **Test coverage:** 107/113 tests → 113/113 tests (100% coverage)
+  - **Architecture:** Monolithic controller → Action-based architecture
+  - **Duration:** ~8 hours across 7 phases (25-28 Nov 2025)
+
+### Added
+- **12 Action Classes** (Domain-Driven Design)
+  - Backup Domain: CreateBackupAction, RestoreBackupAction, DeleteBackupAction
+  - Configuration Domain: UpdateConfigurationAction, ResetConfigurationAction
+  - Installation Domain: InstallExtensionAction, UninstallExtensionAction
+  - Update Domain: UpdateExtensionAction, RollbackUpdateAction, CheckUpdatesAction
+  - Marketplace: SearchMarketplaceAction, RefreshMarketplaceAction
+
+- **6 Validation Traits**
+  - ValidatesBackups, ValidatesConfiguration, ValidatesExtensions
+  - ValidatesInstallation, ValidatesMarketplace, ValidatesUpdate
+
+- **4 Response Helpers**
+  - BackupResponses, ConfigurationResponses, InstallationResponses, UpdateResponses
+
+### Improved
+- **Type Safety:** Strict types in all new classes
+- **Error Handling:** Consistent exception handling across all actions
+- **Code Organization:** Clear separation of concerns (Actions, Validation, Responses)
+- **Maintainability:** Single Responsibility Principle applied
+- **Testability:** Each action is independently testable
+
+### Documentation
+- **Refactoring Reports:** Moved to `reports/refactoring.v1/`
+  - REFACTORING-STATUS.md - Complete overview
+  - FASE-2-COMPLETE.md through FASE-7-COMPLETE.md
+  - BASELINE-METRICS.md - Before/After comparison
+  - EXTENSION-MANAGER-v2.0.0-REFACTORING.md - Technical details
+
+### Breaking Changes
+- None - All public APIs maintained backward compatibility
+- Internal architecture completely redesigned but external interfaces unchanged
+
+---
+
+## [1.4.0] - 2025-11-27
+
+### Fixed
+- **CRITICAL: Extension Permissions Protocol v2.0 Implementation**
+  - **Tickets Extension:** v1.2.2 → v1.2.3
+    - Added TicketsPermissionsSeeder (135 líneas) - 8 permisos con alias/description
+    - Added TicketsUninstallSeeder (75 líneas) - Limpieza completa en desinstalación
+    - Fixed: Permisos se crean con alias/description (no NULL)
+    - Fixed: Roles se asignan automáticamente (5 roles: super-admin, master-developer, administrator, support, user)
+    - Fixed: Permisos se eliminan correctamente en desinstalación
+  - **LLM Manager Extension:** v1.0.2 → v1.0.3
+    - Added LLMUninstallSeeder (75 líneas)
+    - Code sanitation: Removed ~190 líneas hooks muertos (registerExtensionHooks, installPermissions, uninstallPermissions)
+  - **CPANEL Core:**
+    - Added ExtensionSeederManager::runUninstall() (65 líneas)
+    - Updated ExtensionUninstaller to execute uninstall seeders
+
+### Removed
+- **Code Sanitation: 380 líneas total**
+  - Removed registerExtensionHooks() from LLMServiceProvider and TicketsServiceProvider
+  - Removed installPermissions() methods (reemplazados por seeders)
+  - Removed uninstallPermissions() methods (reemplazados por UninstallSeeder)
+  - **Reason:** ExtensionManager NO implementa hooks estáticos - nunca existieron
+
+### Changed
+- **Extension Permissions Protocol v2.0:**
+  - Clarification: Seeder-based approach es el ÚNICO mecanismo válido
+  - Hooks estáticos (registerInstallHook/registerUninstallHook) NO existen en ExtensionManager
+  - Auto-detección por ExtensionSeederManager funciona perfectamente
+  - createExtensionPermissions() es solo fallback si no hay seeder
+
+### Documentation
+- **README.md** - Updated to v1.4.0
+  - Added PERMISSIONS-PROTOCOL-v2.md to Core Concepts (ranked #1)
+  - Added llm-manager to Available Extensions list
+  - Updated Common Pitfalls with permissions anti-patterns
+  - Updated Most Important Documents ranking
+  - Added Permissions topic to By Topic section
+- **PERMISSIONS-PROTOCOL-v2.md** - Already up to date (updated 2025-11-26)
+
+### Lessons Learned
+- **Marketplace Cache:** Requiere clearCache() después de push a GitHub para reflejar versiones actualizadas
+- **Installation Flow:** Seeders ejecutan primero, createExtensionPermissions() solo es fallback
+- **Version Tracking:** UI puede mostrar versiones incorrectas si cache no se limpia
+
+---
+
 ## [1.3.1] - 2025-11-26
 
 ### Fixed
