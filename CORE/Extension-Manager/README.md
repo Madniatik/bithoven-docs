@@ -1,8 +1,11 @@
 # Bithoven Extensions - Complete Documentation
 
-**Version:** 1.4.0  
-**Last Updated:** 27 de noviembre de 2025  
+**Version:** 2.0.0  
+**Last Updated:** 28 de noviembre de 2025  
 **Maintainer:** Madniatik
+
+> **🎉 v2.0.0 Released!** Extension Manager refactored with Action-based architecture.  
+> See [CHANGELOG.md](CHANGELOG.md) for complete details.
 
 ---
 
@@ -29,6 +32,12 @@
 - [Fresh Install System](guides/FRESH-INSTALL-SYSTEM.md) - Complete reinstallation process
 - [Backup & Recovery](guides/BACKUP-RECOVERY.md) - Automatic backups and restoration
 - [Extension Manager API](guides/EXTENSION-MANAGER-API.md) - Complete API reference
+
+### Reports & History
+- [Refactoring Reports v2.0.0](reports/refactoring.v1/) - **NEW:** Complete refactoring documentation
+  - [REFACTORING-STATUS.md](reports/refactoring.v1/REFACTORING-STATUS.md) - Overview & achievements
+  - [BASELINE-METRICS.md](reports/refactoring.v1/BASELINE-METRICS.md) - Before/After comparison
+  - [FASE Reports](reports/refactoring.v1/) - Phase-by-phase implementation (FASE-2 through FASE-7)
 
 ### Schema & Validation
 - [JSON Schema](schemas/extension-schema.json) - **NEW:** Official JSON Schema for validation
@@ -160,12 +169,33 @@ When updating this documentation:
 
 ---
 
+## 📊 Reports & History
+
+### Refactoring Reports (v2.0.0)
+Complete documentation of the Extension Manager refactoring to Action-based architecture:
+
+- **[reports/refactoring.v1/](reports/refactoring.v1/)** - Historical refactoring documentation
+  - [REFACTORING-STATUS.md](reports/refactoring.v1/REFACTORING-STATUS.md) - Complete overview of the refactoring process
+  - [EXTENSION-MANAGER-v2.0.0-REFACTORING.md](reports/refactoring.v1/EXTENSION-MANAGER-v2.0.0-REFACTORING.md) - Technical implementation details
+  - [BASELINE-METRICS.md](reports/refactoring.v1/BASELINE-METRICS.md) - Before/After metrics comparison
+  - [FASE-2-COMPLETE.md](reports/refactoring.v1/FASE-2-COMPLETE.md) through [FASE-7-COMPLETE.md](reports/refactoring.v1/FASE-7-COMPLETE.md) - Phase-by-phase progress
+
+**Key Achievements:**
+- 78% code reduction (2,090 → 450 lines)
+- 100% test coverage (113/113 tests passing)
+- 0 PHPStan errors (down from 100)
+- Action-based architecture (12 Actions, 6 Traits, 4 Response Helpers)
+- No breaking changes - 100% backward compatible
+
+---
+
 ## 🔗 Related Resources
 
 ### Main Project Documentation
 - **Copilot Instructions:** `/Users/madniatik/CODE/LARAVEL/BITHOVEN/CPANEL/.github/copilot-instructions.md`
 - **Core System:** `/Users/madniatik/CODE/LARAVEL/BITHOVEN/CPANEL/.github/copilot-core/CORE-SYSTEM.md`
 - **Extension System (CPANEL):** `/Users/madniatik/CODE/LARAVEL/BITHOVEN/CPANEL/.github/copilot-core/EXTENSION-DEVELOPMENT.md`
+- **Performance Optimization:** `../Performance/` - Cache strategy, eager loading, optimization checklist
 
 ### External Links
 - **Laravel Documentation:** https://laravel.com/docs
