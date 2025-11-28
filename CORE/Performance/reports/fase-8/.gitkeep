@@ -1,0 +1,8 @@
+# FASE 8 Performance Optimization Reports
+
+Esta carpeta contendrá los reportes de cada subfase de FASE 8:
+
+- `FASE-8.1-CACHE-LAYER.md` - Cache Layer Implementation
+- `FASE-8.2-EAGER-LOADING.md` - Eager Loading Audit
+- `FASE-8.3-PRODUCTION-OPT.md` - Production Optimizations
+- `FASE-8.4-MONITORING.md` - Monitoring & Metrics
