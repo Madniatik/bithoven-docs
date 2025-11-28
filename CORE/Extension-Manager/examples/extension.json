@@ -1,0 +1,77 @@
+{
+  "slug": "example-extension",
+  "name": "Example Extension",
+  "version": "1.0.0",
+  "description": "Example extension demonstrating proper structure and configuration",
+  "author": "BITHOVEN Team",
+  "created_at": "2025-11-28T00:00:00+00:00",
+  "updated_at": "2025-11-28T00:00:00Z",
+  
+  "homepage": "https://github.com/bithoven/example-extension",
+  "repository": {
+    "type": "vcs",
+    "url": "https://github.com/YourOrg/example-extension.git"
+  },
+  
+  "category": "Productivity",
+  "icon": "ki-abstract-26",
+  "featured": false,
+  "tags": ["example", "template", "starter"],
+  
+  "permissions": [
+    "extensions:example:items:view",
+    "extensions:example:items:create",
+    "extensions:example:items:edit",
+    "extensions:example:items:delete",
+    "extensions:example:settings:manage"
+  ],
+  
+  "system_tables": [],
+  
+  "migrations": {
+    "required": true,
+    "path": "database/migrations"
+  },
+  
+  "requirements": {
+    "php": "^8.2",
+    "laravel": "^11.0"
+  },
+  
+  "min_version": "1.0.0",
+  "dependencies": {
+    "bithoven/core": "^1.4.0"
+  },
+  
+  "seeders": {
+    "core": [
+      "ExamplePermissionsSeeder",
+      "ExampleConfigSeeder"
+    ],
+    "demo": [
+      "ExampleDemoSeeder"
+    ],
+    "uninstall": [
+      "ExampleUninstallSeeder"
+    ]
+  },
+  
+  "changelog": {
+    "v1.0.0": {
+      "date": "2025-11-28",
+      "changes": [
+        "Initial release with extension.json schema v1.0.0",
+        "Implemented Extension Permissions Protocol v2.0",
+        "Created ExamplePermissions data class with alias and descriptions",
+        "Created ExamplePermissionsSeeder for proper permission installation",
+        "Created ExampleUninstallSeeder for clean uninstall",
+        "Added role-based permission assignment strategy",
+        "Complete CRUD operations example",
+        "Metronic UI integration"
+      ],
+      "migration_notes": "Initial database setup. Creates example_items table.",
+      "breaking_changes": false,
+      "components": ["code", "database", "views", "config", "seeders"]
+    }
+  }
+}
