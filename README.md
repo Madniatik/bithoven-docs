@@ -1,7 +1,7 @@
 # Bithoven Documentation
 
-**Versión:** 1.0.0  
-**Última Actualización:** 26 de noviembre de 2025
+**Versión:** 1.1.0  
+**Última Actualización:** 5 de diciembre de 2025
 
 ---
 
@@ -20,7 +20,9 @@ La documentación está organizada en dos categorías principales:
 ```
 DOCS/
 ├── CORE/                      # Sistema Central
+│   ├── Debug-Console/         # Sistema de debug logging centralizado
 │   ├── Extension-Manager/     # Sistema de gestión de extensiones
+│   ├── Performance/           # Optimizaciones de rendimiento
 │   └── User-Management/       # Sistema de usuarios y permisos
 │
 └── COMPONENTS/                # Componentes
@@ -30,6 +32,27 @@ DOCS/
 ---
 
 ## 🎯 CORE - Sistema Central
+
+### Debug Console
+
+Sistema centralizado de debug logging para aplicaciones y extensiones.
+
+**Documentación:**
+- [INDEX](CORE/Debug-Console/INDEX.md) - Índice completo de documentación
+- [README](CORE/Debug-Console/README.md) - Guía principal y API overview
+- [AI Agent Instructions](CORE/Debug-Console/AI-AGENT-INSTRUCTIONS.md) - Integración para extensiones
+- [API Reference](CORE/Debug-Console/API-REFERENCE.md) - Referencia completa de API
+- [Examples](CORE/Debug-Console/EXAMPLES.md) - Ejemplos de uso real
+- [Configuration](CORE/Debug-Console/CONFIGURATION.md) - Guía de configuración y deployment
+
+**Características:**
+- ✅ Owner isolation (cada extensión tiene su propio logger)
+- ✅ Level filtering (debug, info, warn, error)
+- ✅ Global availability (vanilla-friendly pattern)
+- ✅ Zero overhead cuando disabled
+- ✅ Timestamps automáticos
+- ✅ Grupos colapsables
+- ✅ Performance timers
 
 ### Extension Manager
 
@@ -133,7 +156,7 @@ Esta documentación se mantiene sincronizada con el proyecto principal. Para con
 
 **Proyecto**: Bithoven CPANEL  
 **Mantenedor**: Madniatik  
-**Última Revisión**: 26 de noviembre de 2025
+**Última Revisión**: 5 de diciembre de 2025
 
 ---
 
