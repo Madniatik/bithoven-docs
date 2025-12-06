@@ -7,6 +7,52 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.1.0] - 2025-12-06
+
+### Added - PUBLIC ASSETS SYMLINK IN DEV-MODE ✨
+- **ExtensionDevelopmentService v2.0.0**
+  - **Public symlink:** Automatic sync of `{extension}/public/` to `public/vendor/bithoven/{extension}`
+  - **Double symlink pattern:** vendor/ + public/ during dev-mode
+  - **Backup pattern:** `.repo` folders for both vendor and public
+  - **Graceful degradation:** Extensions without `public/` folder work normally
+  - **Zero breaking changes:** 100% backward compatible
+
+- **New Methods in ExtensionDevelopmentService**
+  - `createPublicSymlink()` - Creates public assets symlink with backup
+  - `removePublicSymlink()` - Restores public backup on disable
+  - Updated `enable()` - Creates both vendor and public symlinks
+  - Updated `disable()` - Restores both backups
+  - Updated `getInfo()` - Includes public symlink information
+  - Updated `validate()` - Validates public symlink state
+
+- **ExtensionUninstaller Enhancement**
+  - `disableDevelopmentMode()` now cleans up public symlinks before uninstall
+
+### Improved - DEVELOPER EXPERIENCE
+- **Instant asset changes:** Edit JS/CSS/images in dev-path → Changes visible immediately
+- **No manual publishing:** Eliminates need for `php artisan vendor:publish --force`
+- **Consistent workflow:** Same backup pattern for vendor and public
+- **Safe cleanup:** Both symlinks and backups removed on disable/uninstall
+
+### Testing
+- ✅ Extension WITH public/ folder (llm-manager): Symlinks created, changes sync instantly
+- ✅ Extension WITHOUT public/ folder (dummy): Graceful skip, no errors
+- ✅ Enable/Disable cycle: Complete restoration of original state
+- ✅ Uninstall with dev-mode active: Automatic cleanup of all symlinks
+
+### Documentation
+- **DEVELOPMENT-MODE.md** - Updated to v2.0.0
+  - Added "Public Assets Sync" section
+  - Updated "How It Works" with double symlink flow
+  - Added verification commands
+  - Updated changelog
+- **EXTENSION-MANAGER-PUBLIC-SYMLINK-PLAN.md** - Complete implementation plan (NEW)
+  - 5 phases detailed
+  - Testing scenarios
+  - Implementation code samples
+
+---
+
 ## [2.0.0] - 2025-11-28
 
 ### Changed - MAJOR REFACTORING COMPLETED ✅

@@ -1,21 +1,23 @@
 # Development Mode Guide
 
-**Version:** 1.0.0  
-**Last Updated:** 18 de noviembre de 2025  
+**Version:** 2.0.0  
+**Last Updated:** 6 de diciembre de 2025  
 **Status:** STABLE
 
 ---
 
 ## 🎯 Overview
 
-Development Mode permite editar extensiones en tiempo real sin necesidad de reinstalar. Funciona creando un symlink desde `vendor/bithoven/{extension}` hacia tu repositorio local, permitiendo que los cambios se reflejen inmediatamente.
+Development Mode permite editar extensiones en tiempo real sin necesidad de reinstalar. Funciona creando symlinks desde `vendor/bithoven/{extension}` y `public/vendor/bithoven/{extension}` hacia tu repositorio local, permitiendo que los cambios se reflejen inmediatamente.
 
 **Características principales:**
 - ✅ Funciona con **CUALQUIER** extensión instalada (VCS o Composer)
+- ✅ **Double symlink:** vendor/ + public/ (NEW v2.0.0)
 - ✅ Preserva archivos originales en backup `.repo`
 - ✅ Toggle fácil on/off
 - ✅ Tracking de activación (usuario + timestamp)
 - ✅ Disponible via CLI y UI
+- ✅ **Assets públicos en sync automático** (NEW v2.0.0)
 
 ---
 
@@ -64,18 +66,23 @@ vendor/bithoven/tickets/
 ├── database/
 ├── resources/
 └── ... (archivos de composer)
+
+public/vendor/bithoven/tickets/
+└── ... (assets publicados)
 ```
 
 **Activación ejecuta:**
 1. `mv vendor/bithoven/tickets vendor/bithoven/tickets.repo`
 2. `ln -s /absolute/path/to/EXTENSIONS/bithoven-extension-tickets vendor/bithoven/tickets`
-3. Guarda config en `extension-settings.json`:
+3. `mv public/vendor/bithoven/tickets public/vendor/bithoven/tickets.repo` (NEW v2.0.0)
+4. `ln -s /absolute/path/to/EXTENSIONS/bithoven-extension-tickets/public public/vendor/bithoven/tickets` (NEW v2.0.0)
+5. Guarda config en `extension-settings.json`:
    ```json
    {
      "development_mode": {
        "enabled": true,
        "local_path": "../EXTENSIONS/bithoven-extension-tickets",
-       "activated_at": "2025-11-18T03:58:24+00:00",
+       "activated_at": "2025-12-06T20:36:24+00:00",
        "activated_by": 1
      }
    }
@@ -86,13 +93,72 @@ vendor/bithoven/tickets/
 vendor/bithoven/
 ├── tickets → /path/to/EXTENSIONS/bithoven-extension-tickets (symlink)
 └── tickets.repo/ (backup de archivos originales)
+
+public/vendor/bithoven/
+├── tickets → /path/to/EXTENSIONS/bithoven-extension-tickets/public (symlink) ✨ NEW
+└── tickets.repo/ (backup de assets originales) ✨ NEW
 ```
 
 ### Proceso de Desactivación
 
 1. `rm vendor/bithoven/tickets` (elimina symlink)
 2. `mv vendor/bithoven/tickets.repo vendor/bithoven/tickets` (restaura backup)
-3. Actualiza config: `enabled: false`, agrega `deactivated_at`
+3. `rm public/vendor/bithoven/tickets` (elimina public symlink) ✨ NEW
+4. `mv public/vendor/bithoven/tickets.repo public/vendor/bithoven/tickets` (restaura public backup) ✨ NEW
+5. Actualiza config: `enabled: false`, agrega `deactivated_at`
+
+---
+
+## ✨ Public Assets Sync (v2.0.0)
+
+### Automatic Sync
+
+Cuando dev-mode está activo, los assets públicos (JS, CSS, imágenes) se sincronizan automáticamente:
+
+**Sin dev-mode (manual):**
+```bash
+# Editar asset
+vim dev-path/public/js/app.js
+
+# Publicar manualmente
+php artisan vendor:publish --force --tag=tickets-assets
+```
+
+**Con dev-mode (automático):**
+```bash
+# Editar asset
+vim dev-path/public/js/app.js
+
+# ✅ Cambio visible INMEDIATAMENTE en public/vendor/bithoven/tickets/
+# NO requiere vendor:publish
+```
+
+### Graceful Degradation
+
+Si la extensión **no tiene carpeta `public/`**, dev-mode funciona normalmente:
+
+```bash
+php artisan bithoven:extension:dev-mode dummy --enable --path=../EXTENSIONS/dummy
+# ✅ Vendor symlink creado
+# ℹ️  Public symlink skipped (no public/ folder)
+# ✅ Dev-mode activo sin errores
+```
+
+### Verification
+
+```bash
+# Ver ambos symlinks
+ls -la vendor/bithoven/tickets
+ls -la public/vendor/bithoven/tickets
+
+# Ver targets
+readlink vendor/bithoven/tickets
+readlink public/vendor/bithoven/tickets
+
+# Verificar backups
+ls -la vendor/bithoven/tickets.repo
+ls -la public/vendor/bithoven/tickets.repo
+```
 
 ---
 
@@ -322,6 +388,26 @@ git commit -m "feat: add new feature"
 ---
 
 ## 📝 Changelog
+
+### v2.0.0 - 2025-12-06
+
+**Added:**
+- Public assets symlink durante dev-mode
+- Backup `.repo` para assets públicos
+- Sincronización automática de cambios en `{extension}/public/`
+- Validación de public symlinks en `validate()`
+- Graceful degradation para extensiones sin `public/`
+
+**Changed:**
+- `ExtensionDevelopmentService::enable()` ahora crea doble symlink (vendor + public)
+- `ExtensionDevelopmentService::disable()` restaura ambos backups
+- `ExtensionUninstaller::disableDevelopmentMode()` limpia symlinks públicos
+- `getInfo()` incluye información de public symlink
+
+**Developer Experience:**
+- ✅ Editar JS/CSS en extensión → Cambios inmediatos en app
+- ✅ No más `php artisan vendor:publish --force` manual
+- ✅ Assets siempre sincronizados durante desarrollo
 
 ### v1.0.0 - 2025-11-18
 
